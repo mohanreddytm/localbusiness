@@ -42,6 +42,7 @@ app.post('/business-data', (req, res) => {
 
   const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1);
   const reviews = Math.floor(Math.random() * 500) + 10;
+  const randomTemplate = headlineTemplates[Math.floor(Math.random() * headlineTemplates.length)];
   const headline = randomTemplate.replace('{name}', name).replace('{location}', location);
   res.json({rating, reviews, headline});
 });
