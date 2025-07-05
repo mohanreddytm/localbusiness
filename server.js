@@ -9,19 +9,6 @@ app.use(express.json());
 
 const port = 8000;
 
-app.post('/business-data', (req, res) => {
-  const {name, location} = req.body;
-
-  if(!name || !location){
-    return res.status(400).json({ error: "Business name and location are required" });
-  }
-
-  const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1);
-  const reviews = Math.floor(Math.random() * 500) + 10;
-  const headline = `Why ${name} is ${location}'s Sweetest Spot in 2025`;
-  res.json({rating, reviews, headline});
-});
-
 const headlineTemplates = [
   "Why {name} is {location}'s Top Pick in 2025",
   "{name}: Revolutionizing Small Businesses in {location}",
@@ -44,6 +31,20 @@ const headlineTemplates = [
   "Here’s Why {name} Stands Out in {location}",
   "{name} — The Future of Local Business in {location}"
 ];
+
+
+app.post('/business-data', (req, res) => {
+  const {name, location} = req.body;
+
+  if(!name || !location){
+    return res.status(400).json({ error: "Business name and location are required" });
+  }
+
+  const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1);
+  const reviews = Math.floor(Math.random() * 500) + 10;
+  const headline = randomTemplate.replace('{name}', name).replace('{location}', location);
+  res.json({rating, reviews, headline});
+});
 
 
 
